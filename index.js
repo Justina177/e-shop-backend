@@ -11,7 +11,8 @@ connect();
 // app.use('/', (req, res) => {
 //     res.send("Hello from Server side")
 // });
-
+app.use(express.json());
+// app.use(bodyParser.urlencoded({ extend: true }));
 app.use('/api/user', authRouter);
 
 app.listen(PORT, () => {
