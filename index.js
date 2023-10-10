@@ -9,6 +9,7 @@ const authRouter =require("./routes/authRoute.js");
 const { notFound, errorHandler } = require("./middlewares/errorHandler.js");
 
 connect(); 
+// 48.20
 
 // app.use('/', (req, res) => {
 //     res.send("Hello from Server side")

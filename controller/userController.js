@@ -22,7 +22,13 @@ const loginUser = asyncHandler(async(req, res) => {
          // Check if user exists or not
     const findUser = await User.findOne({ email });
     if(findUser && await findUser.isPasswordMatched(password)) {
-        res.status(200).json(findUser);
+        res.status(200).json({
+            _id: findUser?.firstname,
+            lastname: findUser?.lastname,
+            email: findUser?.email,
+            mobile: findUser?.mobile,
+            token: generateToken(findUser?._id),
+        });
     } else {
         throw new Error("Invalid credenentials");
     }
