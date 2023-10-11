@@ -1,6 +1,6 @@
 const User = require("../models/userModel.js");
 const asyncHandler = require("express-async-handler");
-
+const { generateToken } =require("../config/jwtToken.js")
 const createUser = asyncHandler(async(req, res) => {
     const email = req.body.email;
     const findUser = await User.findOne({ email: email });
