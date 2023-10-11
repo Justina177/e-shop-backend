@@ -72,6 +72,32 @@ const deleteUser = asyncHandler(async (req, res) => {
     }
 });
 
+// Update a User
+const updateUser = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    try {
+        const updateuser = await User.findByIdAndUpdate(
+            id,
+            {
+                firstname: req?.body?.firstname,
+                lastname: req?.body.lastname,
+                email: req.body?.email,
+                mobile: req?.body.mobile,
+            },
+            {
+                new: true,
+            }
+            );
+            res.status(200).json({
+                message:"User details updated successfully",
+                updateuser
+            });
+    } catch (err) {
+        throw new Error(err);
+    }
+
+})
+
 
 module.exports = {
     createUser,
@@ -79,4 +105,5 @@ module.exports = {
     getAllUsers,
     getUser,
     deleteUser,
+    updateUser,
 }
