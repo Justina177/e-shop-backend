@@ -102,7 +102,7 @@ const updateUser = asyncHandler(async (req, res) => {
 const blockUser = asyncHandler(async(req, res, next) => {
     const { id } = req.params;
     try {
-        const block = User.findByIdAndUpdate(
+        const blockusr = await User.findByIdAndUpdate(
             id,
             {
                 isBlocked: true,
@@ -112,7 +112,8 @@ const blockUser = asyncHandler(async(req, res, next) => {
             }
         );
         res.status(200).json({
-            message: "User Blocked",
+            message: "User Blocked", blockusr
+
         })
 
     } catch (error) {
@@ -124,7 +125,7 @@ const blockUser = asyncHandler(async(req, res, next) => {
 const unblockUser = asyncHandler(async(req, res, next) => {
     const { id } = req.params;
     try {
-        const block = User.findByIdAndUpdate(
+        const blockusr = await User.findByIdAndUpdate(
             id,
             {
                 isBlocked: false,
@@ -134,7 +135,7 @@ const unblockUser = asyncHandler(async(req, res, next) => {
             }
         );
         res.status(200).json({
-            message: "User Unblocked",
+            message: "User Unblocked", blockusr
         })
 
     } catch (error) {
