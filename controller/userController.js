@@ -52,8 +52,8 @@ const getUser = asyncHandler(async(req, res) =>{
         res.status(200).json({ 
             getUser,
         });
-    } catch (err) {
-        throw new Error(err);
+    } catch (error) {
+        throw new Error(error);
     }
 });
 
@@ -74,10 +74,11 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 // Update a User
 const updateUser = asyncHandler(async (req, res) => {
-    const { id } = req.params;
+    // console.log()
+    const { _id } = req.user;
     try {
-        const updateuser = await User.findByIdAndUpdate(
-            id,
+        const updateUser = await User.findByIdAndUpdate(
+            _id,
             {
                 firstname: req?.body?.firstname,
                 lastname: req?.body.lastname,
@@ -90,13 +91,13 @@ const updateUser = asyncHandler(async (req, res) => {
             );
             res.status(200).json({
                 message:"User details updated successfully",
-                updateuser
+                updateUser
             });
-    } catch (err) {
-        throw new Error(err);
+    } catch (error) {
+        throw new Error(error);
     }
 
-})
+});
 
 
 module.exports = {
