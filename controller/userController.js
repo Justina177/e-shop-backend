@@ -2,6 +2,7 @@ const User =require("../models/userModel.js");
 const asyncHandler = require("express-async-handler");
 const { generateToken } = require("../config/jwtToken.js");
 const validateMongoDbId = require("../utils/validateMongodbId.js");
+const { generateRefreshToken } = require("../config/refreshToken.js");
 
 
 const createUser = asyncHandler(async(req, res) => {
@@ -21,10 +22,22 @@ const createUser = asyncHandler(async(req, res) => {
 
 const loginUser = asyncHandler(async(req, res) => {
     const { email, password } = req.body;
-    // console.log(email, password);
-         // Check if user exists or not
+// console.log(email, password);
+    // Check if user exists or not
     const findUser = await User.findOne({ email });
-    if(findUser && await findUser.isPasswordMatched(password)) {
+    if(findUser && (await findUser.isPasswordMatched(password))) {
+        const refreshToken = await generateRefreshToken(findUser?._id);
+        const updateuser = await User.findByIdAndUpdate(
+            findUser.id,
+            {
+               refreshToken: refreshToken,
+            },
+            { new: true }
+        );
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            maxAge: 72 * 60 * 60 * 1000,
+        });
         res.status(200).json({
             _id: findUser?.firstname,
             lastname: findUser?.lastname,
@@ -37,7 +50,9 @@ const loginUser = asyncHandler(async(req, res) => {
     }
 });
 
+
 // Get All Users
+
 const getAllUsers = asyncHandler(async(req, res) =>{
     try {
         const getUsers = await User.find();
@@ -169,4 +184,5 @@ module.exports = {
     updateUser,
     blockUser,
     unblockUser,
+ 
 }
