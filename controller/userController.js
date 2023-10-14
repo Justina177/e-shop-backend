@@ -49,7 +49,11 @@ const loginUser = asyncHandler(async(req, res) => {
         throw new Error("Invalid credenentials");
     }
 });
-
+// Handle Refresh Token
+const handleRefreshToken = asyncHandler(async (req, res, next) => {
+    const cookie = req.cookies;
+    console.log(cookie);  
+});
 
 // Get All Users
 
@@ -184,5 +188,5 @@ module.exports = {
     updateUser,
     blockUser,
     unblockUser,
- 
+    handleRefreshToken,
 }
