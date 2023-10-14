@@ -8,14 +8,16 @@ const connect = require('./config/connect.js');
 const authRouter =require("./routes/authRoute.js");
 const { notFound, errorHandler } = require("./middlewares/errorHandler.js");
 const cookieParser = require("cookie-parser");
-// const ProductRouter = require("./routes/productRoute.js");
 const productRouter = require("./routes/productRoute");
+const morgan = require("morgan");
+
 connect(); 
-// 48.20
+
 
 // app.use('/', (req, res) => {
 //     res.send("Hello from Server side")
 // });
+app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser .urlencoded({ extended: true }));
 app.use(cookieParser());
