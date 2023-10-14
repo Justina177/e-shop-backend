@@ -8,7 +8,8 @@ const connect = require('./config/connect.js');
 const authRouter =require("./routes/authRoute.js");
 const { notFound, errorHandler } = require("./middlewares/errorHandler.js");
 const cookieParser = require("cookie-parser");
-
+// const ProductRouter = require("./routes/productRoute.js");
+const productRouter = require("./routes/productRoute");
 connect(); 
 // 48.20
 
@@ -20,6 +21,7 @@ app.use(bodyParser .urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/api/user', authRouter);
+app.use('/api/product', productRouter);
 
 app.use(notFound);
 app.use(errorHandler)
