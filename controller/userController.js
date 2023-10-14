@@ -53,7 +53,6 @@ const loginUser = asyncHandler(async(req, res) => {
 // Handle Refresh Token
 const handleRefreshToken = asyncHandler(async (req, res) => {
     const cookie = req.cookies;
-    console.log(cookie);  
     if (!cookie?.refreshToken) throw new Error("No Refresh Token in Cookies");
     const refreshToken = cookie.refreshToken;
     console.log(refreshToken);
